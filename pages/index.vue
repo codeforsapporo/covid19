@@ -9,7 +9,7 @@
       class="mb-4"
       date="2020年3月9日"
       url="http://www.pref.hokkaido.lg.jp/ss/tkk/singatakoronahaien.htm"
-      text="pull request に対してプレビュー画面を表示するテスト4"
+      text="pull request に対してプレビュー画面を表示するテスト5"
     />
     <v-row class="DataBlock">
       <v-col cols="12" md="6" class="DataCard">
