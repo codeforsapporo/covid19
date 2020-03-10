@@ -9,7 +9,7 @@
       class="mb-4"
       date="2020年3月8日"
       url="http://www.pref.hokkaido.lg.jp/ss/tkk/singatakoronahaien.htm"
-      text="北海道における新型コロナウイルス感染症の検査陽性者の状況（R2.3.8現在）"
+      text="pull request に対してプレビュー画面を表示するテスト"
     />
     <v-row class="DataBlock">
       <v-col cols="12" md="6" class="DataCard">
