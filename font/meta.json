@@ -34,5 +34,13 @@
   {
     "name": "web",
     "codepoint": "F59F"
+  },
+  {
+    "name": "chevron-left",
+    "codepoint": "F141"
+  },
+  {
+    "name": "chevron-right",
+    "codepoint": "F142"
   }
 ]

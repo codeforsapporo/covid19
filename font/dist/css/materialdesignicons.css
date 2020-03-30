@@ -54,6 +54,14 @@
   content: "\F59F";
 }
 
+.mdi-chevron-left::before {
+  content: "\F141";
+}
+
+.mdi-chevron-right::before {
+  content: "\F142";
+}
+
 .mdi-blank::before {
   content: "\F68C";
   visibility: hidden;
