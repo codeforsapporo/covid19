@@ -1,3 +1,4 @@
+
 # 新型コロナウイルス感染症対策サイト北海道版
 
 ![](https://github.com/codeforsapporo/covid19/workflows/production%20deploy/badge.svg)
