@@ -1,6 +1,6 @@
 <template>
   <v-col cols="12" md="6" class="DataCard">
-    <subway-chart :title="$t('testCard')" :loaded="true" date="2020/04/06" />
+    <subway-chart :title="$t('testCard')" loaded="true" date="2020/04/06" />
   </v-col>
 </template>
 
