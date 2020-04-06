@@ -173,6 +173,7 @@ module.exports = {
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
+   * test
    */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
