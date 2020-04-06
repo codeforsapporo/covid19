@@ -34,11 +34,13 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/moment": "^1.6.0",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "apexcharts": "^3.18.1",
     "chart.js": "^2.9.3",
     "cross-env": "^7.0.2",
     "express": "^4.16.4",
     "nuxt": "^2.12.2",
     "nuxt-i18n": "6.8.1",
+    "vue-apexcharts": "^1.5.3",
     "vue-chartjs": "^3.5.0",
     "vue-property-decorator": "^8.4.1",
     "vue-spinner": "^1.0.3"

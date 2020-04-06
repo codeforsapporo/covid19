@@ -12,6 +12,7 @@
     />
 
     <v-row class="DataBlock">
+      <subway-card />
       <current-patients-card id="current-patients" />
       <discharges-card id="discharges" />
       <patients-summary-card id="patients-summary" />
@@ -42,9 +43,11 @@ import ContactsCard from '@/components/cards/ContactsCard.vue'
 import QuerentsCard from '@/components/cards/QuerentsCard.vue'
 import CurrentPatientsCard from '@/components/cards/CurrentPatientsCard.vue'
 import InspectionsCard from '@/components/cards/InspectionsCard.vue'
+import SubwayCard from '@/components/cards/SubwayCard'
 
 export default {
   components: {
+    SubwayCard,
     InspectionsCard,
     CurrentPatientsCard,
     QuerentsCard,
