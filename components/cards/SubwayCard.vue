@@ -1,5 +1,6 @@
 <template>
   <v-col cols="12" md="6" class="DataCard">
+    {{ Object.keys(test[0]) }}
     <subway-chart :title="$t('testCard')" :loaded="true" date="2020/04/06" />
   </v-col>
 </template>
@@ -11,6 +12,8 @@ export default {
   components: { SubwayChart },
   data() {
     return {
+      test: [],
+      keys: [],
       options: {
         plotOptions: {
           heatmap: {
@@ -77,6 +80,23 @@ export default {
           data: [1, 3, 4, 5, 6, 7, 4]
         }
       ]
+    }
+  },
+  created() {
+    this.getHeatMapFromAPI()
+  },
+  methods: {
+    async getHeatMapFromAPI() {
+      await this.$axios
+        .$get(
+          'https://raw.githubusercontent.com/Kanahiro/sapporo_subway_analyze/gh-pages/json/data.json'
+        )
+        .then(response => {
+          this.test = response
+        })
+        .catch(_ => {
+          this.$emit('failed', '帰国者・接触者電話相談センター相談件数データ ')
+        })
     }
   }
 }
