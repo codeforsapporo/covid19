@@ -2,7 +2,8 @@
   <v-col cols="12" md="6" class="DataCard">
     <subway-chart
       :chart-data="datas"
-      :title="$t('testCard')"
+      :label-data="labels"
+      :title="$t('地下鉄乗車率')"
       :loaded="true"
       date="2020/04/06"
     />
@@ -10,6 +11,7 @@
 </template>
 
 <script>
+import formatHeatMapLabels from '../../utils/formatHeatMapLabels'
 import formatHeatMap from '@/utils/formatHeatMap'
 import SubwayChart from '@/components/SubwayChart.vue'
 export default {
@@ -39,11 +41,12 @@ export default {
               const thirdKey = Object.keys(response[e][f])
               thirdKey.forEach(g => {
                 this.datas.push(formatHeatMap(response[e][f][g]))
-                this.labels.push()
+                this.labels.push(
+                  formatHeatMapLabels({ linename: e, date: f, direction: g })
+                )
               })
             })
           })
-          this.test = formatHeatMap(response.namboku['3gatsu3shu'].right)
         })
         .catch(_ => {
           this.$emit('failed', '帰国者・接触者電話相談センター相談件数データ ')

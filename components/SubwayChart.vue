@@ -11,6 +11,11 @@
       <scale-loader color="#1268d8" />
     </v-overlay>
     <v-layout column :class="{ loading: !loaded }">
+      <v-row align="left">
+        <v-col class="d-flex" cols="3" sm="6">
+          <v-select :items="lines" label="路線名" outlined />
+        </v-col>
+      </v-row>
       <apexcharts type="heatmap" :options="options" :series="chartData" />
       <v-footer v-if="supplement !== ''" class="TimeBarChart-Footer">
         <ul class="supplementTexts">
@@ -74,6 +79,11 @@ export default {
       required: false,
       default: () => []
     },
+    labelData: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
     date: {
       type: String,
       required: true,
@@ -122,6 +132,7 @@ export default {
   },
   data() {
     return {
+      lines: ['東西線', '南北線', '東豊線'],
       options: {
         plotOptions: {
           heatmap: {
