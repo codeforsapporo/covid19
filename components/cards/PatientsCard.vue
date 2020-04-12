@@ -18,9 +18,9 @@
 
 <script>
 import DataTable from '@/components/DataTable.vue'
-import formatTable from '@/utils/formatTable'
-import convertToDateFromData from '@/utils/convertToDateFromData'
-import formatPatientsSummaryGraph from '@/utils/formatPatientsSummaryGraph'
+import formatTable from '@/utils/formatTable.ts'
+import convertToDateFromData from '@/utils/convertToDateFromData.ts'
+import formatPatientsSummaryGraph from '@/utils/formatPatientsSummaryGraph.ts'
 
 export default {
   name: 'PatientsCard',

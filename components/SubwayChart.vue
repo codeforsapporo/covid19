@@ -7,14 +7,11 @@
     :source-link="sourceLink"
     :title-id="titleId"
   >
-    <template v-if="showButton === true" v-slot:button>
-      <data-selector v-model="dataKind" />
-    </template>
     <v-overlay absolute :value="!loaded" justify-center align-center>
       <scale-loader color="#1268d8" />
     </v-overlay>
     <v-layout column :class="{ loading: !loaded }">
-      <apexcharts type="heatmap" :options="options" :series="series" />
+      <apexcharts type="heatmap" :options="options" :series="chartData" />
       <v-footer v-if="supplement !== ''" class="TimeBarChart-Footer">
         <ul class="supplementTexts">
           <li class="supplementText">
@@ -26,13 +23,6 @@
         </ul>
       </v-footer>
     </v-layout>
-    <template v-slot:infoPanel>
-      <data-view-basic-info-panel
-        :l-text="displayInfo.lText"
-        :s-text="displayInfo.sText"
-        :unit="displayInfo.unit"
-      />
-    </template>
   </data-view>
 </template>
 
@@ -67,14 +57,10 @@
 <script>
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
 import DataView from '@/components/DataView.vue'
-import DataSelector from '@/components/DataSelector.vue'
-import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
 
 export default {
   components: {
     DataView,
-    DataSelector,
-    DataViewBasicInfoPanel,
     ScaleLoader
   },
   props: {
@@ -136,213 +122,33 @@ export default {
   },
   data() {
     return {
-      options: {},
-      series: [
-        {
-          name: 'Metric1',
-          data: [1, 3, 4, 5, 6, 7, 4]
-        },
-        {
-          name: 'Metric2',
-          data: [1, 3, 4, 5, 6, 7, 4]
-        },
-        {
-          name: 'Metric3',
-          data: [1, 3, 4, 5, 6, 7, 4]
-        },
-        {
-          name: 'Metric4',
-          data: [1, 3, 4, 5, 6, 7, 4]
-        },
-        {
-          name: 'Metric5',
-          data: [1, 3, 4, 5, 6, 7, 4]
-        },
-        {
-          name: 'Metric6',
-          data: [1, 3, 4, 5, 6, 7, 4]
-        },
-        {
-          name: 'Metric7',
-          data: [1, 3, 4, 5, 6, 7, 4]
-        },
-        {
-          name: 'Metric8',
-          data: [1, 3, 4, 5, 6, 7, 4]
-        },
-        {
-          name: 'Metric9',
-          data: [1, 3, 4, 5, 6, 7, 4]
-        }
-      ],
-      dataKind: this.defaultDataKind,
-      graphRange: [0, 1]
-    }
-  },
-  computed: {
-    sliderMax() {
-      if (!this.chartData || this.chartData.length === 0) {
-        return 1
-      }
-      return this.chartData.length - 1
-    },
-    displayCumulativeRatio() {
-      const lastDay = this.chartData.slice(-1)[0].cumulative
-      const lastDayBefore = this.chartData.slice(-2)[0].cumulative
-      return this.formatDayBeforeRatio(lastDay - lastDayBefore).toLocaleString()
-    },
-    displayTransitionRatio() {
-      const lastDay = this.chartData.slice(-1)[0].transition
-      const lastDayBefore = this.chartData.slice(-2)[0].transition
-      return this.formatDayBeforeRatio(lastDay - lastDayBefore).toLocaleString()
-    },
-    displayInfo() {
-      if (!this.chartData || this.chartData.length === 0) {
-        return {
-          lText: '',
-          sText: '',
-          unit: ''
-        }
-      }
-      if (this.dataKind === 'transition') {
-        return {
-          lText: `${this.chartData.slice(-1)[0].transition.toLocaleString()}`,
-          sText: this.$t('実績値（前日比：{change} {unit}）', {
-            change: this.displayTransitionRatio,
-            unit: this.unit
-          }),
-          unit: this.unit
-        }
-      }
-      return {
-        lText: this.chartData[
-          this.chartData.length - 1
-        ].cumulative.toLocaleString(),
-        sText: this.$t('{date} 累計値（前日比：{change} {unit}）', {
-          date: this.$moment(this.chartData.slice(-1)[0].label).format('MM/DD'),
-          change: this.displayCumulativeRatio,
-          unit: this.unit
-        }),
-        unit: this.unit
-      }
-    },
-    displayData() {
-      if (!this.chartData || this.chartData.length === 0) {
-        return {}
-      }
-      if (this.dataKind === 'transition') {
-        return {
-          labels: this.chartData.map(d => {
-            return d.label
-          }),
-          datasets: [
-            {
-              label: this.dataKind,
-              data: this.chartData.map(d => {
-                return d.transition
-              }),
-              backgroundColor: '#1c8df0',
-              borderWidth: 0
-            }
-          ]
-        }
-      }
-      return {
-        labels: this.chartData.map(d => {
-          return d.label
-        }),
-        datasets: [
-          {
-            label: this.dataKind,
-            data: this.chartData.map(d => {
-              return d.cumulative
-            }),
-            backgroundColor: '#1c8df0',
-            borderWidth: 0
-          }
-        ]
-      }
-    },
-    displayOption() {
-      const unit = this.unit
-      if (!this.chartData || this.chartData.length === 0) {
-        return {}
-      }
-      return {
-        animation: false,
-        tooltips: {
-          displayColors: false,
-          callbacks: {
-            label(tooltipItem) {
-              const labelText = `${parseInt(
-                tooltipItem.value
-              ).toLocaleString()} ${unit}`
-              return labelText
-            }
-          }
-        },
-        responsive: true,
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [
-            {
-              type: 'time',
-              offset: true,
-              time: {
-                tooltipFormat: 'MM/DD',
-                unit: 'day',
-                unitStepSize: 1,
-                displayFormats: {
-                  day: 'M/D'
+      options: {
+        plotOptions: {
+          heatmap: {
+            colorScale: {
+              ranges: [
+                {
+                  from: 0,
+                  to: 0,
+                  color: '#b2fcff',
+                  name: 'low'
                 },
-                round: 'day'
-              },
-              stacked: true,
-              gridLines: {
-                display: false
-              },
-              ticks: {
-                max: this.chartData[this.graphRange[1]].label,
-                min: this.chartData[this.graphRange[0]].label,
-                fontSize: 10,
-                maxTicksLimit: 20,
-                fontColor: '#808080'
-              }
+                {
+                  from: 1,
+                  to: 1,
+                  color: '#128FD9',
+                  name: 'medium'
+                },
+                {
+                  from: 21,
+                  to: 45,
+                  color: '#FFB200',
+                  name: 'high'
+                }
+              ]
             }
-          ],
-          yAxes: [
-            {
-              location: 'bottom',
-              stacked: true,
-              gridLines: {
-                display: true,
-                color: '#E5E5E5'
-              },
-              ticks: {
-                suggestedMin: 0,
-                maxTicksLimit: 8,
-                fontColor: '#808080'
-              }
-            }
-          ]
+          }
         }
-      }
-    }
-  },
-  methods: {
-    sliderUpdate(sliderValue) {
-      this.graphRange = sliderValue
-    },
-    formatDayBeforeRatio(dayBeforeRatio) {
-      switch (Math.sign(dayBeforeRatio)) {
-        case 1:
-          return `+${dayBeforeRatio}`
-        case -1:
-          return `${dayBeforeRatio}`
-        default:
-          return `${dayBeforeRatio}`
       }
     }
   }
