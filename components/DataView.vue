@@ -170,9 +170,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    formattedDate(): string {
-      return ''
-    },
     graphEmbedValue(): string {
       const graphEmbedValue =
         '<iframe width="560" height="315" src="' +

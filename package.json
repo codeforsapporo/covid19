@@ -35,6 +35,7 @@
     "@nuxtjs/moment": "^1.6.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "apexcharts": "^3.18.1",
+    "@nuxtjs/sitemap": "^2.2.0",
     "chart.js": "^2.9.3",
     "cross-env": "^7.0.2",
     "express": "^4.16.4",

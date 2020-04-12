@@ -5,6 +5,7 @@
     :date="date"
     :source-from="sourceFrom"
     :source-link="sourceLink"
+    :title-id="titleId"
   >
     <template v-slot:button>
       <span />
@@ -124,6 +125,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    titleId: {
+      type: String,
+      required: false,
+      default: ''
     }
   }
 }

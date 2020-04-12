@@ -161,7 +161,8 @@ module.exports = {
         langDir: './assets/locales/'
       }
     ],
-    'nuxt-svg-loader'
+    'nuxt-svg-loader',
+    '@nuxtjs/sitemap'
   ],
   /*
    ** Axios module configuration
@@ -202,6 +203,40 @@ module.exports = {
     "Scope": "/",
     "start_url": "/",
     "splash_pages": null
+  },
+
+  sitemap: {
+    hostname: 'https://stopcovid19.hokkaido.dev',
+    exclude: [
+      '/google0ad9aca222118e04.html',
+      '/api/*'
+    ],
+    routes() {
+      const locales = ['ja', 'en', 'zh-cn', 'zh-tw', 'th', 'vi', 'ko', 'ja-basic']
+      const pages = [
+        '/cards/contacts',
+        '/cards/current-patients',
+        '/cards/discharges-summary',
+        '/cards/inspections',
+        '/cards/patients',
+        '/cards/patients-summary',
+        '/cards/querents'
+      ]
+
+      const routes = []
+      locales.forEach(locale => {
+        pages.forEach(page => {
+          if (locale === 'ja') {
+            routes.push(page)
+            return
+          }
+          const route = `/${locale}${page}`
+          routes.push(route)
+        })
+      })
+      return routes
+    }
+
   },
 
   generate: {

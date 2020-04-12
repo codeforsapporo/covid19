@@ -3,7 +3,7 @@
     <dev-environment-ribbon v-if="displayRibbon" />
     <v-overlay v-if="loading" color="#F8F9FA" opacity="1" z-index="9999">
       <div class="loader">
-        <img :alt="$t('北海道')" src="/logo.svg" />
+        <logo-animation height="50px" :alt="$t('北海道')" />
         <scale-loader color="#1268d8" />
       </div>
     </v-overlay>
@@ -34,9 +34,11 @@
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
 import SideNavigation from '@/components/SideNavigation'
 import DevEnvironmentRibbon from '@/components/DevEnvironmentRibbon'
+import LogoAnimation from '@/components/Logo-Animation'
 
 export default {
   components: {
+    LogoAnimation,
     ScaleLoader,
     SideNavigation,
     DevEnvironmentRibbon
