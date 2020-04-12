@@ -1,7 +1,7 @@
 <template>
   <v-col cols="12" md="6" class="DataCard">
     <subway-chart
-      :chart-data="test"
+      :chart-data="datas"
       :title="$t('testCard')"
       :loaded="true"
       date="2020/04/06"
@@ -17,7 +17,8 @@ export default {
   components: { SubwayChart },
   data() {
     return {
-      test: [],
+      datas: [],
+      labels: [],
       keys: []
     }
   },
@@ -31,8 +32,18 @@ export default {
           'https://raw.githubusercontent.com/Kanahiro/sapporo_subway_analyze/gh-pages/json/data.json'
         )
         .then(response => {
-          console.log(response.namboku['3gatsu3shu'].left)
-          this.test = formatHeatMap(response.namboku['3gatsu3shu'].left)
+          const firstKey = Object.keys(response)
+          firstKey.forEach(e => {
+            const secondkey = Object.keys(response[e])
+            secondkey.forEach(f => {
+              const thirdKey = Object.keys(response[e][f])
+              thirdKey.forEach(g => {
+                this.datas.push(formatHeatMap(response[e][f][g]))
+                this.labels.push()
+              })
+            })
+          })
+          this.test = formatHeatMap(response.namboku['3gatsu3shu'].right)
         })
         .catch(_ => {
           this.$emit('failed', '帰国者・接触者電話相談センター相談件数データ ')
