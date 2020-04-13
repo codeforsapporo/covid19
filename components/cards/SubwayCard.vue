@@ -1,8 +1,7 @@
 <template>
   <v-col cols="12" md="6" class="DataCard">
     <subway-chart
-      :chart-data="datas"
-      :label-data="labels"
+      :chart-data="chartData"
       :title="$t('地下鉄乗車率')"
       :loaded="true"
       date="2020/04/06"
@@ -19,8 +18,7 @@ export default {
   components: { SubwayChart },
   data() {
     return {
-      datas: [],
-      labels: [],
+      chartData: [],
       keys: []
     }
   },
@@ -40,12 +38,19 @@ export default {
             secondkey.forEach(f => {
               const thirdKey = Object.keys(response[e][f])
               thirdKey.forEach(g => {
-                this.datas.push(formatHeatMap(response[e][f][g]))
-                this.labels.push(
-                  formatHeatMapLabels({ linename: e, date: f, direction: g })
-                )
+                this.chartData.push({
+                  labels: formatHeatMapLabels({
+                    linename: e,
+                    date: f,
+                    direction: g
+                  }),
+                  datas: formatHeatMap(response[e][f][g])
+                })
               })
             })
+          })
+          this.dates = this.dates.filter(function(x, i, self) {
+            return self.indexOf(x) === i
           })
         })
         .catch(_ => {

@@ -11,12 +11,47 @@
       <scale-loader color="#1268d8" />
     </v-overlay>
     <v-layout column :class="{ loading: !loaded }">
-      <v-row align="left">
-        <v-col class="d-flex" cols="3" sm="6">
-          <v-select :items="lines" label="路線名" outlined />
+      <v-row no-gutters>
+        <v-col cols="12" sm="4">
+          <v-select
+            v-model="lineselected"
+            class="pa-2"
+            item-value="value"
+            item-text="label"
+            :items="lines"
+            label="路線名"
+            outlined
+            dense
+          />
+        </v-col>
+
+        <v-col cols="12" sm="4">
+          <v-select
+            v-model="dateselected"
+            class="pa-2"
+            item-value="value"
+            item-text="label"
+            :items="dates"
+            label="何月何週"
+            outlined
+            dense
+          />
+        </v-col>
+
+        <v-col cols="12" sm="4">
+          <v-select
+            v-model="directionselected"
+            class="pa-2"
+            item-value="value"
+            item-text="label"
+            :items="directions"
+            label="方向"
+            outlined
+            dense
+          />
         </v-col>
       </v-row>
-      <apexcharts type="heatmap" :options="options" :series="chartData" />
+      <apexcharts type="heatmap" :options="options" :series="heatmapData" />
       <v-footer v-if="supplement !== ''" class="TimeBarChart-Footer">
         <ul class="supplementTexts">
           <li class="supplementText">
@@ -31,7 +66,7 @@
   </data-view>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .TimeBarChart-Footer {
   background-color: $white !important;
   text-align: left;
@@ -75,11 +110,6 @@ export default {
       default: ''
     },
     chartData: {
-      type: Array,
-      required: false,
-      default: () => []
-    },
-    labelData: {
       type: Array,
       required: false,
       default: () => []
@@ -132,7 +162,9 @@ export default {
   },
   data() {
     return {
-      lines: ['東西線', '南北線', '東豊線'],
+      lineselected: '',
+      dateselected: '',
+      directionselected: '',
       options: {
         plotOptions: {
           heatmap: {
@@ -160,6 +192,81 @@ export default {
             }
           }
         }
+      }
+    }
+  },
+  computed: {
+    lines() {
+      const alllines = []
+      this.chartData.forEach(e => {
+        alllines.push({
+          label: e.labels.JPLineName,
+          value: e.labels.ENLineName
+        })
+      })
+      const line = alllines.filter(function(x, i, self) {
+        return self.indexOf(x) === i
+      })
+      return line
+    },
+    dates() {
+      const alldates = []
+      this.chartData.forEach(e => {
+        if (e.labels.ENLineName === this.lineselected) {
+          alldates.push({
+            label: e.labels.JPDate,
+            value: e.labels.OriginalDate
+          })
+        }
+      })
+      const date = alldates.filter(function(x, i, self) {
+        return self.indexOf(x) === i
+      })
+      return date
+    },
+    directions() {
+      const alldirection = []
+      this.chartData.forEach(e => {
+        if (
+          e.labels.ENLineName === this.lineselected &&
+          e.labels.OriginalDate === this.dateselected
+        ) {
+          alldirection.push({
+            label: e.labels.StationFrom + '→' + e.labels.StationTo,
+            value: e.labels.OriginalDirection
+          })
+        }
+      })
+      const direction = alldirection.filter(function(x, i, self) {
+        return self.indexOf(x) === i
+      })
+      return direction
+    },
+    heatmapData() {
+      if (!this.loaded) {
+        return []
+      }
+      if (this.lineselected && this.dateselected && this.directionselected) {
+        this.chartData.forEach(e => {
+          if (
+            e.labels.ENLineName === this.lineselected &&
+            e.labels.OriginalDate === this.dateselected &&
+            e.labels.OriginalDirection === this.directionselected
+          ) {
+            console.log(e.datas)
+            return e.datas
+          }
+        })
+      }
+      return []
+    }
+  },
+  watch: {
+    chartData() {
+      if (this.chartData !== []) {
+        this.lineselected = this.chartData[0].labels.ENLineName
+        this.dateselected = this.chartData[0].labels.OriginalDate
+        this.directionselected = this.chartData[0].labels.OriginalDirection
       }
     }
   }
