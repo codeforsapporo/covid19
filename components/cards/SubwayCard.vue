@@ -56,7 +56,7 @@ export default {
               })
             })
           })
-          this.subway.last_update = response.last_update
+          this.subway.last_update = this.$moment(new Date()).format('MM/DD')
           this.subway.loaded = true
           this.dates = this.dates.filter(function(x, i, self) {
             return self.indexOf(x) === i
