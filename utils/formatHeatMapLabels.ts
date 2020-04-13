@@ -32,9 +32,11 @@ const stations = {
       '平岸',
       '南平岸',
       '澄川',
-      '自衛隊前'
+      '自衛隊前',
+      '真駒内'
     ],
     right: [
+      '真駒内',
       '自衛隊前',
       '澄川',
       '南平岸',
@@ -169,8 +171,8 @@ export default (data: DataType) => {
     OriginalDate: data.date,
     JPDate: jpdate,
     OriginalDirection: data.direction,
-    StationFrom: jpstations[jpstations.length - 1],
-    StationTo: jpstations[0],
+    StationFrom: jpstations[0],
+    StationTo: jpstations[jpstations.length - 1],
     Stations: jpstations
   }
   return labelData

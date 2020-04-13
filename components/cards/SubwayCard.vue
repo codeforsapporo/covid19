@@ -3,14 +3,17 @@
     <subway-chart
       :chart-data="chartData"
       :title="$t('地下鉄乗車率')"
-      :loaded="true"
-      date="2020/04/06"
+      title-id="subway"
+      :loaded="subway.loaded"
+      :date="subway.last_update"
+      :source-from="$t('札幌市交通局')"
+      source-link="http://www.city.sapporo.jp/st/konzatsu_jokyo2020.html"
     />
   </v-col>
 </template>
 
 <script>
-import formatHeatMapLabels from '../../utils/formatHeatMapLabels'
+import formatHeatMapLabels from '@/utils/formatHeatMapLabels'
 import formatHeatMap from '@/utils/formatHeatMap'
 import SubwayChart from '@/components/SubwayChart.vue'
 export default {
@@ -19,6 +22,10 @@ export default {
   data() {
     return {
       chartData: [],
+      subway: {
+        loaded: false,
+        last_update: ''
+      },
       keys: []
     }
   },
@@ -49,6 +56,8 @@ export default {
               })
             })
           })
+          this.subway.last_update = response.last_update
+          this.subway.loaded = true
           this.dates = this.dates.filter(function(x, i, self) {
             return self.indexOf(x) === i
           })

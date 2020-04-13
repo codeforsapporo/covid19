@@ -32,7 +32,7 @@
             item-value="value"
             item-text="label"
             :items="dates"
-            label="何月何週"
+            label="表示期間"
             outlined
             dense
           />
@@ -164,35 +164,7 @@ export default {
     return {
       lineselected: '',
       dateselected: '',
-      directionselected: '',
-      options: {
-        plotOptions: {
-          heatmap: {
-            colorScale: {
-              ranges: [
-                {
-                  from: 0,
-                  to: 0,
-                  color: '#b2fcff',
-                  name: 'low'
-                },
-                {
-                  from: 1,
-                  to: 1,
-                  color: '#128FD9',
-                  name: 'medium'
-                },
-                {
-                  from: 21,
-                  to: 45,
-                  color: '#FFB200',
-                  name: 'high'
-                }
-              ]
-            }
-          }
-        }
-      }
+      directionselected: ''
     }
   },
   computed: {
@@ -243,22 +215,108 @@ export default {
       return direction
     },
     heatmapData() {
-      if (!this.loaded) {
-        return []
-      }
       if (this.lineselected && this.dateselected && this.directionselected) {
+        let data = []
         this.chartData.forEach(e => {
           if (
             e.labels.ENLineName === this.lineselected &&
             e.labels.OriginalDate === this.dateselected &&
             e.labels.OriginalDirection === this.directionselected
           ) {
-            console.log(e.datas)
-            return e.datas
+            data = e.datas
           }
         })
+        return data
       }
       return []
+    },
+    options() {
+      if (this.lineselected && this.dateselected && this.directionselected) {
+        let option = {}
+        this.chartData.forEach(e => {
+          if (
+            e.labels.ENLineName === this.lineselected &&
+            e.labels.OriginalDate === this.dateselected &&
+            e.labels.OriginalDirection === this.directionselected
+          ) {
+            option = {
+              xaxis: {
+                labels: {
+                  formatter(value) {
+                    if (value < 4) {
+                      return e.labels.Stations[value - 1]
+                    }
+                    return e.labels.Stations[value]
+                  }
+                },
+                tooltip: {
+                  enabled: true,
+                  formatter(value) {
+                    return (
+                      e.labels.Stations[value - 1] +
+                      '→' +
+                      e.labels.Stations[value]
+                    )
+                  }
+                }
+              },
+              yaxis: {
+                tooltip: {
+                  enabled: false
+                }
+              },
+              dataLabels: {
+                enabled: false
+              },
+              legend: {
+                formatter() {
+                  return ''
+                }
+              },
+              plotOptions: {
+                heatmap: {
+                  colorScale: {
+                    ranges: [
+                      {
+                        from: 0,
+                        to: 0,
+                        color: '#b2fcff',
+                        name: '空いている'
+                      },
+                      {
+                        from: 1,
+                        to: 1,
+                        color: '#0465d9',
+                        name: ''
+                      },
+                      {
+                        from: 2,
+                        to: 2,
+                        color: '#0b00ff',
+                        name: 'やや混んでいる'
+                      },
+                      {
+                        from: 3,
+                        to: 3,
+                        color: '#F6EB13',
+                        name: ''
+                      },
+                      {
+                        from: 4,
+                        to: 4,
+                        color: '#ED2024',
+                        name: '混んでいる'
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        })
+        return option
+      }
+      return {}
     }
   },
   watch: {
