@@ -12,7 +12,6 @@
     />
 
     <v-row class="DataBlock">
-      <subway-card />
       <current-patients-card id="current-patients" />
       <discharges-card id="discharges" />
       <patients-summary-card id="patients-summary" />
@@ -20,6 +19,7 @@
       <inspections-card id="inspections" />
       <contacts-card id="contacts" />
       <querents-card id="querents" />
+      <subway-card id="subway" />
     </v-row>
     <v-dialog v-model="failed" flat>
       <v-alert type="error">

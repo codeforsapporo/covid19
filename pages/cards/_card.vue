@@ -17,10 +17,12 @@
       v-else-if="this.$route.params.card === 'patients-summary'"
     />
     <querents-card v-else-if="this.$route.params.card === 'querents'" />
+    <subway-card v-else-if="this.$route.params.card === 'subway'" />
   </div>
 </template>
 
 <script>
+import SubwayCard from '../../components/cards/SubwayCard'
 import CurrentPatientsCard from '@/components/cards/CurrentPatientsCard.vue'
 import ContactsCard from '@/components/cards/ContactsCard.vue'
 import DischargesCard from '@/components/cards/DischargesCard.vue'
@@ -31,6 +33,7 @@ import QuerentsCard from '@/components/cards/QuerentsCard.vue'
 
 export default {
   components: {
+    SubwayCard,
     QuerentsCard,
     PatientsSummaryCard,
     PatientsCard,
@@ -69,6 +72,9 @@ export default {
         this.title = this.$t(
           '帰国者・接触者電話相談センター相談件数(札幌市保健所値)'
         )
+        break
+      case 'subway':
+        this.title = this.$t('地下鉄混雑度')
         break
     }
   },
