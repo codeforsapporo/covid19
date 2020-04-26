@@ -33,6 +33,7 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/sitemap": "^2.2.0",
+    "apexcharts": "^3.19.0",
     "chart.js": "^2.9.3",
     "cross-env": "^7.0.2",
     "dayjs": "^1.8.25",

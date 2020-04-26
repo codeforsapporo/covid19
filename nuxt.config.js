@@ -60,8 +60,8 @@ module.exports = {
    */
   plugins: [
     {
-      src: '@/plugins/vue-chart.js',
-      ssr: true
+      src: '@/plugins/vue-apexchart.js',
+      ssr: false
     },
     '@/plugins/dayjs.js'
   ],

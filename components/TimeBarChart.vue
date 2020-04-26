@@ -14,13 +14,28 @@
       <scale-loader color="#1268d8" />
     </v-overlay>
     <v-layout column :class="{ loading: !loaded }">
+      <client-only>
+        <apexcharts
+          id="chart2"
+          type="bar"
+          :options="options"
+          :series="series"
+        />
+        <apexcharts
+          type="area"
+          height="120px"
+          :options="options2"
+          :series="series"
+        />
+      </client-only>
+      <!--
       <bar :chart-data="displayData" :options="displayOption" :height="240" />
       <date-select-slider
         :chart-data="chartData"
         :value="[0, sliderMax]"
         :slider-max="sliderMax"
         @sliderInput="sliderUpdate"
-      />
+      />-->
       <v-footer v-if="supplement !== ''" class="TimeBarChart-Footer">
         <ul class="supplementTexts">
           <li class="supplementText">
@@ -75,14 +90,12 @@ import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
 import DataView from '@/components/DataView.vue'
 import DataSelector from '@/components/DataSelector.vue'
 import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
-import DateSelectSlider from '@/components/DateSelectSlider.vue'
 
 export default {
   components: {
     DataView,
     DataSelector,
     DataViewBasicInfoPanel,
-    DateSelectSlider,
     ScaleLoader
   },
   props: {
@@ -144,27 +157,35 @@ export default {
   },
   data() {
     return {
+      series: [
+        {
+          name: 'Desktops',
+          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+        }
+      ],
       dataKind: this.defaultDataKind,
-      graphRange: [0, 1]
+      graphRange: [0, 1],
+      options: {
+        chart: {
+          id: this.titleId + 'chart1'
+        }
+      },
+      options2: {
+        chart: {
+          id: this.titleId + 'chart2',
+          brush: {
+            enabled: true,
+            target: this.titleId + 'chart1',
+            autoScaleYaxis: false
+          },
+          selection: {
+            enabled: true
+          }
+        }
+      }
     }
   },
   computed: {
-    sliderMax() {
-      if (!this.chartData || this.chartData.length === 0) {
-        return 1
-      }
-      return this.chartData.length - 1
-    },
-    displayCumulativeRatio() {
-      const lastDay = this.chartData.slice(-1)[0].cumulative
-      const lastDayBefore = this.chartData.slice(-2)[0].cumulative
-      return this.formatDayBeforeRatio(lastDay - lastDayBefore).toLocaleString()
-    },
-    displayTransitionRatio() {
-      const lastDay = this.chartData.slice(-1)[0].transition
-      const lastDayBefore = this.chartData.slice(-2)[0].transition
-      return this.formatDayBeforeRatio(lastDay - lastDayBefore).toLocaleString()
-    },
     displayInfo() {
       if (!this.chartData || this.chartData.length === 0) {
         return {
