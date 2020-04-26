@@ -12525,10 +12525,10 @@ vue-analytics@^5.22.1:
   resolved "https://registry.yarnpkg.com/vue-analytics/-/vue-analytics-5.22.1.tgz#9d6b32da56daee1b9dfb23a267b50349a03f710f"
   integrity sha512-HPKQMN7gfcUqS5SxoO0VxqLRRSPkG1H1FqglsHccz6BatBatNtm/Vyy8brApktZxNCfnAkrSVDpxg3/FNDeOgQ==
 
-vue-chartjs@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-3.5.0.tgz#edd0c2be94c521bcbc5357c24afb9f3560855f84"
-  integrity sha512-yWNhG3B6g6lvYqNInP0WaDWNZG/SNb6XnltkjR0wYC5pmLm6jvdiotj8er7Mui8qkJGfLZe6ULjrZdHWjegAUg==
+vue-apexcharts@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/vue-apexcharts/-/vue-apexcharts-1.5.3.tgz#9fde83727d944707da5c8c2fa9f09a051b48d082"
+  integrity sha512-ImbvQxgwbLMrEc9/veDIJ7lzncf1fJDSNqqK0x2YDNUCq5tE9uqM4Gb/ZYUB5WlDM3vDpzwDEmsidWcaO6/WXQ==
 
 vue-class-component@^7.1.0:
   version "7.2.3"
