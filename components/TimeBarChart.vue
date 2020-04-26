@@ -16,16 +16,14 @@
     <v-layout column :class="{ loading: !loaded }">
       <client-only>
         <apexcharts
-          id="chart2"
           type="bar"
-          :options="options"
-          :series="series"
+          :options="displayOption1"
+          :series="displayData"
         />
         <apexcharts
           type="area"
-          height="120px"
-          :options="options2"
-          :series="series"
+          :options="displayOption2"
+          :series="displayData"
         />
       </client-only>
       <!--
@@ -157,32 +155,7 @@ export default {
   },
   data() {
     return {
-      series: [
-        {
-          name: 'Desktops',
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-        }
-      ],
-      dataKind: this.defaultDataKind,
-      graphRange: [0, 1],
-      options: {
-        chart: {
-          id: this.titleId + 'chart1'
-        }
-      },
-      options2: {
-        chart: {
-          id: this.titleId + 'chart2',
-          brush: {
-            enabled: true,
-            target: this.titleId + 'chart1',
-            autoScaleYaxis: false
-          },
-          selection: {
-            enabled: true
-          }
-        }
-      }
+      dataKind: this.defaultDataKind
     }
   },
   computed: {
@@ -218,105 +191,97 @@ export default {
     },
     displayData() {
       if (!this.chartData || this.chartData.length === 0) {
-        return {}
+        return []
       }
       if (this.dataKind === 'transition') {
-        return {
-          labels: this.chartData.map(d => {
-            return d.label
-          }),
-          datasets: [
-            {
-              label: this.dataKind,
-              data: this.chartData.map(d => {
-                return d.transition
-              }),
-              backgroundColor: '#1c8df0',
-              borderWidth: 0
-            }
-          ]
-        }
-      }
-      return {
-        labels: this.chartData.map(d => {
-          return d.label
-        }),
-        datasets: [
+        return [
           {
             label: this.dataKind,
             data: this.chartData.map(d => {
-              return d.cumulative
-            }),
-            backgroundColor: '#1c8df0',
-            borderWidth: 0
+              return d.transition
+            })
           }
         ]
       }
+      return [
+        {
+          label: this.dataKind,
+          data: this.chartData.map(d => {
+            return d.cumulative
+          })
+        }
+      ]
     },
-    displayOption() {
-      const unit = this.unit
+    displayOption1() {
       if (!this.chartData || this.chartData.length === 0) {
-        return {}
+        return {
+          chart: {
+            id: this.titleId + 'chart1',
+            height: 240
+          },
+          dataLabels: {
+            enabled: false
+          }
+        }
       }
       return {
-        animation: false,
-        tooltips: {
-          displayColors: false,
-          callbacks: {
-            label(tooltipItem) {
-              const labelText = `${parseInt(
-                tooltipItem.value
-              ).toLocaleString()} ${unit}`
-              return labelText
+        chart: {
+          id: this.titleId + 'chart1',
+          height: 240
+        },
+        dataLabels: {
+          enabled: false
+        },
+        xaxis: {
+          categories: this.chartData.map(d => {
+            return this.$dayjs(d.label).format('MM/DD')
+          })
+        }
+      }
+    },
+    displayOption2() {
+      if (!this.chartData || this.chartData.length === 0) {
+        return {
+          chart: {
+            id: this.titleId + 'chart2',
+            height: 120,
+            brush: {
+              enabled: true,
+              target: this.titleId + 'chart1',
+              autoScaleYaxis: false
+            },
+            selection: {
+              enabled: true
             }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          fill: {
+            opacity: 1
+          }
+        }
+      }
+      return {
+        chart: {
+          id: this.titleId + 'chart2',
+          height: 120,
+          brush: {
+            enabled: true,
+            target: this.titleId + 'chart1',
+            autoScaleYaxis: false
+          },
+          selection: {
+            enabled: true
           }
         },
-        responsive: true,
-        legend: {
-          display: false
+        dataLabels: {
+          enabled: false
         },
-        scales: {
-          xAxes: [
-            {
-              type: 'time',
-              offset: true,
-              time: {
-                tooltipFormat: 'MM/DD',
-                unit: 'day',
-                unitStepSize: 1,
-                displayFormats: {
-                  day: 'M/D'
-                },
-                round: 'day'
-              },
-              stacked: true,
-              gridLines: {
-                display: false
-              },
-              ticks: {
-                max: this.chartData[this.graphRange[1]].label,
-                min: this.chartData[this.graphRange[0]].label,
-                fontSize: 10,
-                maxTicksLimit: 20,
-                fontColor: '#808080'
-              }
-            }
-          ],
-          yAxes: [
-            {
-              location: 'bottom',
-              stacked: true,
-              gridLines: {
-                display: true,
-                color: '#E5E5E5'
-              },
-              ticks: {
-                suggestedMin: 0,
-                maxTicksLimit: 8,
-                fontColor: '#808080'
-              }
-            }
-          ]
+        xaxis: {
+          categories: this.chartData.map(d => {
+            return this.$dayjs(d.label).format('MM/DD')
+          })
         }
       }
     }
