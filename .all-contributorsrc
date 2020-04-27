@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Nekoya3",
+      "name": "Taiyu Yoshizawa",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/17000370?v=4",
+      "profile": "https://github.com/Nekoya3",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "covid19",
+  "projectOwner": "Nekoya3",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
