@@ -5,24 +5,6 @@
   "imageSize": 100,
   "commit": false,
   "contributors": [
-    {
-      "login": "Nekoya3",
-      "name": "Taiyu Yoshizawa",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/17000370?v=4",
-      "profile": "https://github.com/Nekoya3",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "mame3619",
-      "name": "mame3619",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/25131931?v=4",
-      "profile": "https://github.com/mame3619",
-      "contributions": [
-        "code"
-      ]
-    }
   ],
   "contributorsPerLine": 7,
   "projectName": "covid19",
