@@ -205,6 +205,29 @@ module.exports = {
     "splash_pages": null
   },
 
+  workbox: {
+    runtimeCaching: [
+      {
+        urlPattern: '^https://fonts.(?:googleapis|gstatic).com/(.*)',
+        handler: 'cacheFirst'
+      },
+      {
+        urlPattern: 'https://cdn.materialdesignicons.com/.*',
+        handler: 'cacheFirst'
+      },
+      {
+        urlPattern: 'https://deploy-preview-424--code-for-sappor-covid19-deploy-preview-free.netlify.app/.*',
+        handler: 'networkFirst', //staleWhileRevalidateにしたい
+        strategyOptions: {
+          cacheName: 'Stopcovid19-Hokkaido-Cache',
+          cacheExpiration: {
+            maxAgeSeconds: 24 * 60 * 60 * 30
+          }
+        }
+      }
+    ]
+  },
+
   sitemap: {
     hostname: 'https://stopcovid19.hokkaido.dev',
     exclude: [
