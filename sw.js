@@ -30,6 +30,7 @@ workbox.precaching.cleanupOutdatedCaches()
 // Register route handlers for runtimeCaching
 workbox.routing.registerRoute(new RegExp('^https://fonts.(?:googleapis|gstatic).com/(.*)'), new workbox.strategies.CacheFirst ({}), 'GET')
 workbox.routing.registerRoute(new RegExp('https://cdn.materialdesignicons.com/.*'), new workbox.strategies.CacheFirst ({}), 'GET')
+workbox.routing.registerRoute(new RegExp('https://cdn.jsdelivr.net/.*'), new workbox.strategies.CacheFirst ({}), 'GET')
 workbox.routing.registerRoute(new RegExp('https://stopcovid19-dev.hokkaido.dev/.*'), new workbox.strategies.NetworkFirst ({"cacheName":"Stopcovid19-Hokkaido-dev-Cache","cacheExpiration":{"maxAgeSeconds":86400}}), 'GET')
 workbox.routing.registerRoute(new RegExp('https://stopcovid19.hokkaido.dev/.*'), new workbox.strategies.NetworkFirst ({"cacheName":"Stopcovid19-Hokkaido-Cache","cacheExpiration":{"maxAgeSeconds":86400}}), 'GET')
 workbox.routing.registerRoute(new RegExp('/_nuxt/'), new workbox.strategies.CacheFirst ({}), 'GET')
