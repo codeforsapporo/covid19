@@ -28,6 +28,7 @@
     }
   },
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^2.1.2",
     "@mdi/font-build": "^1.8.4",
     "@nuxt/typescript-runtime": "^0.4.2",
     "@nuxtjs/axios": "^5.9.7",
