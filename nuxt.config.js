@@ -1,6 +1,4 @@
 /* eslint-disable */
-const purgecss = require('@fullhuman/postcss-purgecss')
-const autoprefixer = require('autoprefixer')
 module.exports = {
   mode: 'universal',
   /*
@@ -193,26 +191,10 @@ module.exports = {
      /*
      ** You can extend webpack config here
      */
-    extractCSS: true,
-    postcss: {
-      plugins: [
-        autoprefixer({ grid: 'autoplace' }),
-        purgecss({
-          content: [
-            './pages/**/*.vue',
-            './layouts/**/*.vue',
-            './components/**/*.vue',
-            './node_modules/vuetify/dist/vuetify.js',
-            './node_modules/vue-spinner/src/ScaleLoader.vue'
-          ],
-          whitelist: ['html', 'body', 'nuxt-progress', 'DataCard'],
-          whitelistPatterns: [/(col|row)/]
-        })
-      ]
-    },
-    extend (config, ctx) {
-      config.externals = [{ moment: 'moment' }]
-    }
+     extractCSS: true,
+     extend (config, ctx) {
+       config.externals = [{ moment: 'moment' }]
+     }
   },
   manifest: {
     "name": "北海道 新型コロナウイルスまとめサイト",
