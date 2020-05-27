@@ -164,7 +164,7 @@ module.exports = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: "https://stopcovid19-dev.hokkaido.dev/api/"
+    baseURL: process.env.NODE_ENV === "production" ? "/api/" : "https://stopcovid19-dev.hokkaido.dev/api/"
   },
   webfontloader: {
     google: {
@@ -203,6 +203,39 @@ module.exports = {
     "Scope": "/",
     "start_url": "/",
     "splash_pages": null
+  },
+
+  workbox: {
+    runtimeCaching: [
+      {
+        urlPattern: '^https://fonts.(?:googleapis|gstatic).com/(.*)',
+        handler: 'cacheFirst'
+      },
+      {
+        urlPattern: 'https://cdn.materialdesignicons.com/.*',
+        handler: 'cacheFirst'
+      },
+      {
+        urlPattern: 'https://stopcovid19-dev.hokkaido.dev/.*',
+        handler: 'networkFirst', //staleWhileRevalidateにしたい
+        strategyOptions: {
+          cacheName: 'Stopcovid19-Hokkaido-dev-Cache',
+          cacheExpiration: {
+            maxAgeSeconds: 24 * 60 * 60
+          }
+        }
+      },
+      {
+        urlPattern: 'https://stopcovid19.hokkaido.dev/.*',
+        handler: 'networkFirst', //staleWhileRevalidateにしたい
+        strategyOptions: {
+          cacheName: 'Stopcovid19-Hokkaido-Cache',
+          cacheExpiration: {
+            maxAgeSeconds: 24 * 60 * 60
+          }
+        }
+      }
+    ]
   },
 
   sitemap: {

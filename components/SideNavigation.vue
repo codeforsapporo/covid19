@@ -236,6 +236,10 @@ export default {
           link: this.$t('https://kyufukin.soumu.go.jp/ja-JP/index.html')
         },
         {
+          title: this.$t('全国医療機関の医療医療体制の状況'),
+          link: this.$t('https://cio.go.jp/hosp_monitoring_c19')
+        },
+        {
           title: this.$t('知事からのメッセージ'),
           link:
             'http://www.pref.hokkaido.lg.jp/ss/tkk/hodo/pressconference/r1.htm'
