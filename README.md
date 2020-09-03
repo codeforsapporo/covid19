@@ -79,7 +79,7 @@ covid19 exited with code 127
 なんらかの理由で`yarn install`が失敗していると考えられるので、下記を実行後、再度 `docker-compose up` してみてください。
 
 ```bash
-$ docker-compose exec app sh
+$ docker-compose run --rm app sh
 /app # yarn install
 /app # exit
 ```
