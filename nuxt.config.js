@@ -1,6 +1,7 @@
 /* eslint-disable */
 module.exports = {
-  mode: 'universal',
+  target: 'static',
+  telemetry: false,
   /*
    ** Headers of the page
    */
@@ -82,11 +83,7 @@ module.exports = {
    ** Nuxt.js modules
    */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
     'nuxt-webfontloader',
     [
       'nuxt-i18n',
@@ -159,13 +156,6 @@ module.exports = {
     'nuxt-svg-loader',
     '@nuxtjs/sitemap'
   ],
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {
-    baseURL: process.env.NODE_ENV === "production" ? "/api/" : "https://stopcovid19-dev.hokkaido.dev/api/"
-  },
   webfontloader: {
     google: {
       families: ['Roboto&display=swap']
