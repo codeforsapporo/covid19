@@ -38,7 +38,7 @@ export default {
       sliderValue: this.value,
       rules: [
         v =>
-          Math.abs(v[0] - v[1]) > 14 ||
+          Math.abs(v[0] - v[1]) >= 13 ||
           this.$t('表示期間の最小範囲は１４日間です')
       ]
     }
@@ -48,7 +48,7 @@ export default {
       this.sliderValue = [0, this.sliderMax]
     },
     sliderValue(newValue, oldValue) {
-      if (Math.abs(newValue[0] - newValue[1]) <= 14) {
+      if (Math.abs(newValue[0] - newValue[1]) < 13) {
         this.sliderValue = oldValue
       } else {
         this.$emit('sliderInput', newValue)
