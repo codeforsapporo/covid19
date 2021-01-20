@@ -142,6 +142,16 @@
               :alt="$t('JUST道IT')"
             />
           </nuxt-link>
+          <a href="https://www.hicta.or.jp/" target="_blank" rel="noopener">
+            <span class="image-title">{{ $t('北海道IT推進協会') }}</span>
+            <PictureLoader
+              classname="hicta-logo"
+              filename="hicta"
+              width="225px"
+              height="60px"
+              :alt="$t('北海道IT推進協会')"
+            />
+          </a>
 
           <br />
           <br />
