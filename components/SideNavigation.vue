@@ -197,7 +197,7 @@ export default {
   computed: {
     items() {
       let covidlink =
-        'http://www.pref.hokkaido.lg.jp/hf/kth/kak/singatakoronahaien.htm#道民へ'
+        'http://www.pref.hokkaido.lg.jp/ss/ssa/koronasoudantoiawase.htm'
       if (this.$i18n.locale !== 'ja') {
         covidlink =
           'http://www.pref.hokkaido.lg.jp/ss/tsk/promo/coronavirus.htm'
@@ -222,7 +222,7 @@ export default {
         {
           icon: 'mdi-account-multiple',
           title: this.$t('道民の皆様へ'),
-          link: 'http://www.pref.hokkaido.lg.jp/ss/tkk/singatakoronahaien.htm'
+          link: 'http://www.pref.hokkaido.lg.jp/ss/ssa/singatakoronahaien.htm'
         },
         {
           icon: 'mdi-domain',
@@ -231,8 +231,8 @@ export default {
           divider: true
         },
         {
-          title: this.$t('北海道感染症危機管理対策本部会議'),
-          link: 'http://www.pref.hokkaido.lg.jp/ss/tkk/koronataisakukaigi.htm'
+          title: this.$t('北海道新型コロナウイルス感染症対策本部会議'),
+          link: 'http://www.pref.hokkaido.lg.jp/ss/ssa/koronataisakukaigi.htm'
         },
         // 【東京都主催等】中止または延期するイベント・説明会等
         // 道にまとまった情報がないので一旦コメントアウト
@@ -242,17 +242,13 @@ export default {
         //     'https://www.seisakukikaku.metro.tokyo.lg.jp/information/event02.html'
         // },
         {
-          title: this.$t('特別定額給付金について'),
-          link: this.$t('https://kyufukin.soumu.go.jp/ja-JP/index.html')
-        },
-        {
           title: this.$t('全国医療機関の医療医療体制の状況'),
           link: this.$t('https://cio.go.jp/hosp_monitoring_c19')
         },
         {
           title: this.$t('知事からのメッセージ'),
           link:
-            'http://www.pref.hokkaido.lg.jp/ss/tkk/hodo/pressconference/r1.htm'
+            'http://www.pref.hokkaido.lg.jp/ss/tkk/hodo/pressconference/r3.htm'
         },
         {
           title: this.$t('当サイトについて'),
