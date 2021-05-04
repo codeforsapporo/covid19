@@ -5,10 +5,10 @@
     </h2>
     <TextCard :title="$t('中小企業向け相談窓口及び融資取扱について')">
       <a
-        href="http://www.pref.hokkaido.lg.jp/kz/csk/kny/yuushi/korona.htm"
+        href="http://www.pref.hokkaido.lg.jp/kz/kks/contactinformation.htm"
         target="_blank"
         rel="noopener"
-        >http://www.pref.hokkaido.lg.jp/kz/csk/kny/yuushi/korona.htm</a
+        >http://www.pref.hokkaido.lg.jp/kz/kks/contactinformation.htm</a
       >
       <br />
       {{
@@ -19,10 +19,10 @@
     </TextCard>
     <TextCard :title="$t('新型コロナ感染症の影響による特別労働相談窓口')">
       <a
-        href="http://www.pref.hokkaido.lg.jp/kz/rkr/korona.htm"
+        href="http://www.pref.hokkaido.lg.jp/kz/rkr/korona1.htm"
         target="_blank"
         rel="noopener"
-        >http://www.pref.hokkaido.lg.jp/kz/rkr/korona.htm</a
+        >http://www.pref.hokkaido.lg.jp/kz/rkr/korona1.htm</a
       >
       <br />
       {{

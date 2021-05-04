@@ -46,10 +46,10 @@
         <li>
           {{ $t('相談窓口及び帰国者・接触者相談センターについて') }}<br />
           <a
-            href="http://www.pref.hokkaido.lg.jp/hf/kth/kak/singatakoronahaien.htm#%E7%9B%B8%E8%AB%87%E7%AA%93%E5%8F%A3"
+            href="http://www.pref.hokkaido.lg.jp/ss/ssa/koronasoudantoiawase.htm"
             target="_blank"
             rel="noopener"
-            >http://www.pref.hokkaido.lg.jp/hf/kth/kak/singatakoronahaien.htm#%E7%9B%B8%E8%AB%87%E7%AA%93%E5%8F%A3</a
+            >http://www.pref.hokkaido.lg.jp/ss/ssa/koronasoudantoiawase.htm</a
           >
         </li>
       </ul>
