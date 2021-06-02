@@ -1,36 +1,86 @@
-importScripts('https://cdn.jsdelivr.net/npm/workbox-cdn@4.3.1/workbox/workbox-sw.js')
+const options = {"workboxURL":"https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.3/workbox/workbox-sw.js","importScripts":[],"config":{"debug":false},"clientsClaim":true,"skipWaiting":true,"cleanupOutdatedCaches":true,"offlineAnalytics":false,"preCaching":[],"runtimeCaching":[{"urlPattern":"^https://fonts.(?:googleapis|gstatic).com/(.*)","handler":"CacheFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"https://cdn.materialdesignicons.com/.*","handler":"CacheFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"https://stopcovid19-dev.hokkaido.dev/.*","handler":"NetworkFirst","strategyOptions":{"cacheName":"Stopcovid19-Hokkaido-dev-Cache","cacheExpiration":{"maxAgeSeconds":86400}},"method":"GET","strategyPlugins":[]},{"urlPattern":"https://stopcovid19.hokkaido.dev/.*","handler":"NetworkFirst","strategyOptions":{"cacheName":"Stopcovid19-Hokkaido-Cache","cacheExpiration":{"maxAgeSeconds":86400}},"method":"GET","strategyPlugins":[]},{"urlPattern":"/_nuxt/","handler":"CacheFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]}],"offlinePage":null}
 
-// --------------------------------------------------
-// Configure
-// --------------------------------------------------
+importScripts(...[options.workboxURL, ...options.importScripts])
 
-// Set workbox config
-workbox.setConfig({
-  "debug": false
-})
+initWorkbox(workbox, options)
+workboxExtensions(workbox, options)
+precacheAssets(workbox, options)
+cachingExtensions(workbox, options)
+runtimeCaching(workbox, options)
+offlinePage(workbox, options)
+routingExtensions(workbox, options)
 
-// Start controlling any existing clients as soon as it activates
-workbox.core.clientsClaim()
+function getProp(obj, prop) {
+  return prop.split('.').reduce((p, c) => p[c], obj)
+}
 
-// Skip over the SW waiting lifecycle stage
-workbox.core.skipWaiting()
+function initWorkbox(workbox, options) {
+  if (options.config) {
+    // Set workbox config
+    workbox.setConfig(options.config)
+  }
 
-workbox.precaching.cleanupOutdatedCaches()
+  if (options.cacheNames) {
+    // Set workbox cache names
+    workbox.core.setCacheNameDetails(options.cacheNames)
+  }
 
-// --------------------------------------------------
-// Precaches
-// --------------------------------------------------
+  if (options.clientsClaim) {
+    // Start controlling any existing clients as soon as it activates
+    workbox.core.clientsClaim()
+  }
 
-// Precache assets
+  if (options.skipWaiting) {
+    workbox.core.skipWaiting()
+  }
 
-// --------------------------------------------------
-// Runtime Caching
-// --------------------------------------------------
+  if (options.cleanupOutdatedCaches) {
+    workbox.precaching.cleanupOutdatedCaches()
+  }
 
-// Register route handlers for runtimeCaching
-workbox.routing.registerRoute(new RegExp('^https://fonts.(?:googleapis|gstatic).com/(.*)'), new workbox.strategies.CacheFirst ({}), 'GET')
-workbox.routing.registerRoute(new RegExp('https://cdn.materialdesignicons.com/.*'), new workbox.strategies.CacheFirst ({}), 'GET')
-workbox.routing.registerRoute(new RegExp('https://stopcovid19-dev.hokkaido.dev/.*'), new workbox.strategies.NetworkFirst ({"cacheName":"Stopcovid19-Hokkaido-dev-Cache","cacheExpiration":{"maxAgeSeconds":86400}}), 'GET')
-workbox.routing.registerRoute(new RegExp('https://stopcovid19.hokkaido.dev/.*'), new workbox.strategies.NetworkFirst ({"cacheName":"Stopcovid19-Hokkaido-Cache","cacheExpiration":{"maxAgeSeconds":86400}}), 'GET')
-workbox.routing.registerRoute(new RegExp('/_nuxt/'), new workbox.strategies.CacheFirst ({}), 'GET')
-workbox.routing.registerRoute(new RegExp('/'), new workbox.strategies.NetworkFirst ({}), 'GET')
+  if (options.offlineAnalytics) {
+    // Enable offline Google Analytics tracking
+    workbox.googleAnalytics.initialize()
+  }
+}
+
+function precacheAssets(workbox, options) {
+  if (options.preCaching.length) {
+    workbox.precaching.precacheAndRoute(options.preCaching, options.cacheOptions)
+  }
+}
+
+function runtimeCaching(workbox, options) {
+  for (const entry of options.runtimeCaching) {
+    const urlPattern = new RegExp(entry.urlPattern)
+    const method = entry.method || 'GET'
+
+    const plugins = (entry.strategyPlugins || [])
+      .map(p => new (getProp(workbox, p.use))(...p.config))
+
+    const strategyOptions = { ...entry.strategyOptions, plugins }
+
+    const strategy = new workbox.strategies[entry.handler](strategyOptions)
+
+    workbox.routing.registerRoute(urlPattern, strategy, method)
+  }
+}
+
+function offlinePage(workbox, options) {
+  // Register router handler for offlinePage
+  workbox.routing.registerRoute(new RegExp(options.pagesURLPattern), ({ request, event }) => {
+    const strategy = new workbox.strategies[options.offlineStrategy]
+    return strategy
+      .handle({ request, event })
+      .catch(() => caches.match(options.offlinePage))
+  })
+}
+
+function workboxExtensions(workbox, options) {
+}
+
+function cachingExtensions(workbox, options) {
+}
+
+function routingExtensions(workbox, options) {
+}
