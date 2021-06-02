@@ -316,18 +316,16 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-import { MetaInfo } from 'vue-meta'
+<script>
 const PictureLoader = () => import('~/components/PictureLoader.vue')
 const TextCard = () => import('@/components/TextCard.vue')
 
-export default Vue.extend({
+export default {
   components: {
     PictureLoader,
     TextCard
   },
-  head(): MetaInfo {
+  head() {
     return {
       title:
         this.$t('当サイトについて') +
@@ -339,7 +337,7 @@ export default Vue.extend({
         })
     }
   }
-})
+}
 </script>
 
 <style lang="scss" scoped>

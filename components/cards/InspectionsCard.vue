@@ -44,17 +44,18 @@ export default {
   },
   methods: {
     async getInscpectionsGraphFromAPI() {
-      await this.$axios
-        .$get('/inspections.json')
-        .then(response => {
-          this.inspectionsGraph = formatInspectionsGraph(response.data)
-          this.inspections.last_update = response.last_update
-          this.inspections.loaded = true
-          return true
-        })
-        .catch(_ => {
-          this.$emit('failed', '検査数データ ')
-        })
+      try {
+        const fetchurl = await fetch(
+          'https://codeforsapporo.github.io/covid19hokkaido_scraping/inspections.json'
+        )
+
+        const response = await fetchurl.json()
+        this.inspectionsGraph = formatInspectionsGraph(response.data)
+        this.inspections.last_update = response.last_update
+        this.inspections.loaded = true
+      } catch (_) {
+        this.$emit('failed', '検査数データ ')
+      }
     }
   }
 }
