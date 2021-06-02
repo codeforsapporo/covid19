@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/vi/cards/inspections", {data:[{}],fetch:[],mutations:void 0});
