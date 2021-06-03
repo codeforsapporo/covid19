@@ -30,7 +30,6 @@
   "dependencies": {
     "@mdi/font-build": "^1.8.6",
     "@nuxt/typescript-runtime": "^2.0.0",
-    "@nuxtjs/pwa": "^3.1.0",
     "@nuxtjs/sitemap": "^2.4.0",
     "chart.js": "^2.9.3",
     "cross-env": "^7.0.2",
