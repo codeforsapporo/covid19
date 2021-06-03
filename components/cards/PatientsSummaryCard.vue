@@ -40,16 +40,18 @@ export default {
   methods: {
     // 治療終了者数グラフ
     async getPatientsSummaryGraphFromAPI() {
-      await this.$axios
-        .$get('/patients_summary.json')
-        .then(response => {
-          this.patientsGraph = formatPatientsSummaryGraph(response.data)
-          this.patients_summary.last_update = response.last_update
-          this.patients_summary.loaded = true
-        })
-        .catch(_ => {
-          this.$emit('failed', '陽性患者数データ ')
-        })
+      try {
+        const fetchurl = await fetch(
+          'https://codeforsapporo.github.io/covid19hokkaido_scraping/patients_summary.json'
+        )
+
+        const response = await fetchurl.json()
+        this.patientsGraph = formatPatientsSummaryGraph(response.data)
+        this.patients_summary.last_update = response.last_update
+        this.patients_summary.loaded = true
+      } catch (_) {
+        this.$emit('failed', '陽性患者数データ ')
+      }
     }
   }
 }
