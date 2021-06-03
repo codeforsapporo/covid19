@@ -1,7 +1,6 @@
 /* eslint-disable */
 module.exports = {
-  target: 'static',
-  telemetry: false,
+  mode: 'universal',
   /*
    ** Headers of the page
    */
@@ -83,7 +82,11 @@ module.exports = {
    ** Nuxt.js modules
    */
   modules: [
-//    '@nuxtjs/pwa',
+    // Doc: https://axios.nuxtjs.org/usage
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa',
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv',
     'nuxt-webfontloader',
     [
       'nuxt-i18n',
@@ -156,6 +159,13 @@ module.exports = {
     'nuxt-svg-loader',
     '@nuxtjs/sitemap'
   ],
+  /*
+   ** Axios module configuration
+   ** See https://axios.nuxtjs.org/options
+   */
+  axios: {
+    baseURL: process.env.NODE_ENV === "production" ? "/api/" : "https://stopcovid19-dev.hokkaido.dev/api/"
+  },
   webfontloader: {
     google: {
       families: ['Roboto&display=swap']
@@ -194,7 +204,7 @@ module.exports = {
     "start_url": "/",
     "splash_pages": null
   },
-/*
+
   workbox: {
     runtimeCaching: [
       {
@@ -204,10 +214,30 @@ module.exports = {
       {
         urlPattern: 'https://cdn.materialdesignicons.com/.*',
         handler: 'cacheFirst'
+      },
+      {
+        urlPattern: 'https://stopcovid19-dev.hokkaido.dev/.*',
+        handler: 'networkFirst', //staleWhileRevalidateにしたい
+        strategyOptions: {
+          cacheName: 'Stopcovid19-Hokkaido-dev-Cache',
+          cacheExpiration: {
+            maxAgeSeconds: 24 * 60 * 60
+          }
+        }
+      },
+      {
+        urlPattern: 'https://stopcovid19.hokkaido.dev/.*',
+        handler: 'networkFirst', //staleWhileRevalidateにしたい
+        strategyOptions: {
+          cacheName: 'Stopcovid19-Hokkaido-Cache',
+          cacheExpiration: {
+            maxAgeSeconds: 24 * 60 * 60
+          }
+        }
       }
     ]
   },
-*/
+
   sitemap: {
     hostname: 'https://stopcovid19.hokkaido.dev',
     exclude: [
