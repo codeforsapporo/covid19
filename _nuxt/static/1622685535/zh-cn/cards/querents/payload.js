@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/zh-cn/cards/querents", {data:[{}],fetch:[],mutations:void 0});

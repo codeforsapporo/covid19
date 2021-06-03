@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/vi/flow", {data:[{}],fetch:[],mutations:void 0});

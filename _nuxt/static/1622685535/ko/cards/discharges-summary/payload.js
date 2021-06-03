@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/ko/cards/discharges-summary", {data:[{}],fetch:[],mutations:void 0});

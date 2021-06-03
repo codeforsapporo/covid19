@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/vi/print/info", {data:[{}],fetch:[],mutations:void 0});
