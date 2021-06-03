@@ -196,36 +196,7 @@ module.exports = {
   },
 
   workbox: {
-    runtimeCaching: [
-      {
-        urlPattern: '^https://fonts.(?:googleapis|gstatic).com/(.*)',
-        handler: 'cacheFirst'
-      },
-      {
-        urlPattern: 'https://cdn.materialdesignicons.com/.*',
-        handler: 'cacheFirst'
-      },
-      {
-        urlPattern: 'https://stopcovid19-dev.hokkaido.dev/.*',
-        handler: 'networkFirst', //staleWhileRevalidateにしたい
-        strategyOptions: {
-          cacheName: 'Stopcovid19-Hokkaido-dev-Cache',
-          cacheExpiration: {
-            maxAgeSeconds: 24 * 60 * 60
-          }
-        }
-      },
-      {
-        urlPattern: 'https://stopcovid19.hokkaido.dev/.*',
-        handler: 'networkFirst', //staleWhileRevalidateにしたい
-        strategyOptions: {
-          cacheName: 'Stopcovid19-Hokkaido-Cache',
-          cacheExpiration: {
-            maxAgeSeconds: 24 * 60 * 60
-          }
-        }
-      }
-    ]
+    enabled: false,
   },
 
   sitemap: {
