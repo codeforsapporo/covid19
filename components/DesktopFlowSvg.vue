@@ -1,6 +1,234 @@
 <template>
   <svg viewBox="0 0 1046 1256" xmlns="http://www.w3.org/2000/svg">
     <defs>
+      <style>
+        .a,
+        .ai,
+        .ak,
+        .al,
+        .ar,
+        .f,
+        .g,
+        .i,
+        .x {
+          fill: #fff;
+        }
+
+        .a,
+        .r {
+          stroke: #d9d9d9;
+        }
+
+        .a {
+          stroke-width: 1.5px;
+        }
+
+        .ac,
+        .ae,
+        .ag,
+        .an,
+        .b,
+        .c,
+        .e,
+        .h,
+        .n,
+        .p,
+        .t,
+        .w,
+        .y,
+        .z {
+          fill: #4d4d4d;
+        }
+
+        .b {
+          font-size: 22px;
+        }
+
+        .ac,
+        .ae,
+        .ag,
+        .ai,
+        .ak,
+        .al,
+        .am,
+        .b,
+        .c,
+        .f,
+        .h,
+        .n,
+        .o,
+        .p,
+        .t,
+        .v,
+        .y,
+        .z {
+          font-family: HiraginoSans-W6, Hiragino Sans, sans-serif;
+        }
+
+        .c,
+        .q {
+          font-size: 16px;
+        }
+
+        .ab,
+        .d,
+        .r {
+          fill: none;
+        }
+
+        .aa,
+        .f,
+        .h {
+          font-size: 20px;
+        }
+
+        .am,
+        .aq,
+        .j,
+        .o,
+        .v {
+          fill: #1268d8;
+        }
+
+        .k,
+        .l {
+          fill: #ffe200;
+        }
+
+        .k {
+          stroke: #fff;
+        }
+
+        .k,
+        .x {
+          stroke-width: 2px;
+        }
+
+        .ao,
+        .m {
+          fill: gray;
+        }
+
+        .m {
+          opacity: 0.1;
+        }
+
+        .n {
+          font-size: 26px;
+        }
+
+        .ai,
+        .o,
+        .p {
+          font-size: 18px;
+        }
+
+        .as,
+        .s {
+          fill: #d9d9d9;
+        }
+
+        .ad,
+        .t {
+          font-size: 25px;
+        }
+
+        .ac,
+        .am,
+        .u {
+          font-size: 42px;
+        }
+
+        .ae,
+        .v {
+          font-size: 15px;
+        }
+
+        .w {
+          font-size: 23px;
+        }
+
+        .ab,
+        .x {
+          stroke: #1268d8;
+        }
+
+        .ak,
+        .al,
+        .y {
+          font-size: 21px;
+        }
+
+        .af,
+        .z {
+          font-size: 14px;
+        }
+
+        .ab {
+          stroke-width: 4px;
+        }
+
+        .ag {
+          font-size: 41px;
+        }
+
+        .ah {
+          font-size: 24px;
+        }
+
+        .aj {
+          font-size: 35px;
+        }
+
+        .al {
+          stroke: rgba(0, 0, 0, 0);
+        }
+
+        .an {
+          font-size: 27px;
+          font-family: Univers-Bold, Univers, sans-serif;
+          font-weight: 700;
+        }
+
+        .ap,
+        .aq,
+        .ar,
+        .as {
+          stroke: none;
+        }
+
+        .at {
+          filter: url(#o);
+        }
+
+        .au {
+          filter: url(#m);
+        }
+
+        .av {
+          filter: url(#k);
+        }
+
+        .aw {
+          filter: url(#i);
+        }
+
+        .ax {
+          filter: url(#g);
+        }
+
+        .ay {
+          filter: url(#e);
+        }
+
+        .az {
+          filter: url(#c);
+        }
+
+        .ba {
+          filter: url(#a);
+        }
+      </style>
       <filter
         id="a"
         filterUnits="userSpaceOnUse"
@@ -997,227 +1225,5 @@ svg {
 }
 svg .an {
   font-family: 'Roboto', sans-serif !important;
-  font-size: 27px;
-  font-weight: 700;
-}
-
-.a,
-.ai,
-.ak,
-.al,
-.ar,
-.f,
-.g,
-.i,
-.x {
-  fill: #fff;
-}
-
-.a,
-.r {
-  stroke: #d9d9d9;
-}
-
-.a {
-  stroke-width: 1.5px;
-}
-
-.ac,
-.ae,
-.ag,
-.b,
-.c,
-.e,
-.h,
-.n,
-.p,
-.t,
-.w,
-.y,
-.z {
-  fill: #4d4d4d;
-}
-
-.b {
-  font-size: 22px;
-}
-
-.ac,
-.ae,
-.ag,
-.ai,
-.ak,
-.al,
-.am,
-.b,
-.c,
-.f,
-.h,
-.n,
-.o,
-.p,
-.t,
-.v,
-.y,
-.z {
-  font-family: HiraginoSans-W6, Hiragino Sans, sans-serif;
-}
-
-.c,
-.q {
-  font-size: 16px;
-}
-
-.ab,
-.d,
-.r {
-  fill: none;
-}
-
-.aa,
-.f,
-.h {
-  font-size: 20px;
-}
-
-.am,
-.aq,
-.j,
-.o,
-.v {
-  fill: #1268d8;
-}
-
-.k,
-.l {
-  fill: #ffe200;
-}
-
-.k {
-  stroke: #fff;
-}
-
-.k,
-.x {
-  stroke-width: 2px;
-}
-
-.ao,
-.m {
-  fill: gray;
-}
-
-.m {
-  opacity: 0.1;
-}
-
-.n {
-  font-size: 26px;
-}
-
-.ai,
-.o,
-.p {
-  font-size: 18px;
-}
-
-.as,
-.s {
-  fill: #d9d9d9;
-}
-
-.ad,
-.t {
-  font-size: 25px;
-}
-
-.ac,
-.am,
-.u {
-  font-size: 42px;
-}
-
-.ae,
-.v {
-  font-size: 15px;
-}
-
-.w {
-  font-size: 23px;
-}
-
-.ab,
-.x {
-  stroke: #1268d8;
-}
-
-.ak,
-.al,
-.y {
-  font-size: 21px;
-}
-
-.af,
-.z {
-  font-size: 14px;
-}
-
-.ab {
-  stroke-width: 4px;
-}
-
-.ag {
-  font-size: 41px;
-}
-
-.ah {
-  font-size: 24px;
-}
-
-.aj {
-  font-size: 35px;
-}
-
-.al {
-  stroke: rgba(0, 0, 0, 0);
-}
-
-.ap,
-.aq,
-.ar,
-.as {
-  stroke: none;
-}
-
-.at {
-  filter: url(#o);
-}
-
-.au {
-  filter: url(#m);
-}
-
-.av {
-  filter: url(#k);
-}
-
-.aw {
-  filter: url(#i);
-}
-
-.ax {
-  filter: url(#g);
-}
-
-.ay {
-  filter: url(#e);
-}
-
-.az {
-  filter: url(#c);
-}
-
-.ba {
-  filter: url(#a);
 }
 </style>

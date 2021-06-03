@@ -43,18 +43,16 @@ export default {
   methods: {
     // 治療終了者数グラフ
     async getDischargesSummaryGraphFromAPI() {
-      try {
-        const fetchurl = await fetch(
-          'https://codeforsapporo.github.io/covid19hokkaido_scraping/discharges_summary.json'
-        )
-
-        const response = await fetchurl.json()
-        this.dischargesGraph = formatDischargesSummaryGraph(response.data)
-        this.discharges_summary.last_update = response.last_update
-        this.discharges_summary.loaded = true
-      } catch (_) {
-        this.$emit('failed', '治療終了者数データ ')
-      }
+      await this.$axios
+        .$get('/discharges_summary.json')
+        .then(response => {
+          this.dischargesGraph = formatDischargesSummaryGraph(response.data)
+          this.discharges_summary.last_update = response.last_update
+          this.discharges_summary.loaded = true
+        })
+        .catch(_ => {
+          this.$emit('failed', '治療終了者数データ ')
+        })
     }
   }
 }
