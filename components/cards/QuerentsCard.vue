@@ -38,18 +38,16 @@ export default {
   },
   methods: {
     async getQuerentsGraphFromAPI() {
-      try {
-        const fetchurl = await fetch(
-          'https://codeforsapporo.github.io/covid19hokkaido_scraping/querents.json'
-        )
-
-        const response = await fetchurl.json()
-        this.querentsGraph = formatGraph(response.data)
-        this.querents.last_update = response.last_update
-        this.querents.loaded = true
-      } catch (_) {
-        this.$emit('failed', '帰国者・接触者電話相談センター相談件数データ ')
-      }
+      await this.$axios
+        .$get('/querents.json')
+        .then(response => {
+          this.querentsGraph = formatGraph(response.data)
+          this.querents.last_update = response.last_update
+          this.querents.loaded = true
+        })
+        .catch(_ => {
+          this.$emit('failed', '帰国者・接触者電話相談センター相談件数データ ')
+        })
     }
   }
 }

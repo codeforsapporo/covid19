@@ -48,61 +48,57 @@ export default {
   },
   methods: {
     async getPatientsTableFromAPI() {
-      try {
-        const fetchurl = await fetch(
-          'https://codeforsapporo.github.io/covid19hokkaido_scraping/patients.json'
-        )
-
-        const response = await fetchurl.json()
-        this.patientsTable = formatTable(response.data)
-        // 陽性患者の属性 ヘッダー翻訳
-        for (const header of this.patientsTable.headers) {
-          header.text =
-            header.value === '退院' ? this.$t('退院※') : this.$t(header.value)
-        }
-        // 陽性患者の属性 中身の翻訳
-        for (const row of this.patientsTable.datasets) {
-          row['居住地'] = this.$t(row['居住地'])
-          row['性別'] = this.$t(row['性別'])
-          row['退院'] = this.$t(row['退院'])
-          if (row['性別'] === '非公表性') {
-            row['性別'] = this.$t('非公表')
+      await this.$axios
+        .$get('/patients.json')
+        .then(response => {
+          this.patientsTable = formatTable(response.data)
+          // 陽性患者の属性 ヘッダー翻訳
+          for (const header of this.patientsTable.headers) {
+            header.text =
+              header.value === '退院' ? this.$t('退院※') : this.$t(header.value)
           }
-          const match = row['年代'].match(/^([0-9]+)代$/)
-          if (match) {
-            row['年代'] = this.$t('{age}代', { age: match[1] })
-          } else {
-            row['年代'] = this.$t(row['年代'])
+          // 陽性患者の属性 中身の翻訳
+          for (const row of this.patientsTable.datasets) {
+            row['居住地'] = this.$t(row['居住地'])
+            row['性別'] = this.$t(row['性別'])
+            row['退院'] = this.$t(row['退院'])
+            if (row['性別'] === '非公表性') {
+              row['性別'] = this.$t('非公表')
+            }
+            const match = row['年代'].match(/^([0-9]+)代$/)
+            if (match) {
+              row['年代'] = this.$t('{age}代', { age: match[1] })
+            } else {
+              row['年代'] = this.$t(row['年代'])
+            }
           }
-        }
-        this.patients.last_update = response.last_update
-        this.patients.loaded = true
-      } catch (_) {
-        this.$emit('failed', '陽性患者の属性データ ')
-      }
+          this.patients.last_update = response.last_update
+          this.patients.loaded = true
+        })
+        .catch(_ => {
+          this.$emit('failed', '陽性患者の属性データ ')
+        })
     },
     async getPatientsSummaryGraphFromAPI() {
-      try {
-        const fetchurl = await fetch(
-          'https://codeforsapporo.github.io/covid19hokkaido_scraping/patients_summary.json'
-        )
-
-        const response = await fetchurl.json()
-        const patientsGraph = formatPatientsSummaryGraph(response.data)
-        this.sumInfoOfPatients = {
-          lText: patientsGraph[
-            patientsGraph.length - 1
-          ].cumulative.toLocaleString(),
-          sText: this.$t('{date}の累計', {
-            date: this.$dayjs(
-              patientsGraph[patientsGraph.length - 1].label
-            ).format('MM/DD')
-          }),
-          unit: this.$t('人')
-        }
-      } catch (_) {
-        this.$emit('failed2', '陽性患者数データ ')
-      }
+      await this.$axios
+        .$get('/patients_summary.json')
+        .then(response => {
+          const patientsGraph = formatPatientsSummaryGraph(response.data)
+          this.sumInfoOfPatients = {
+            lText: patientsGraph[
+              patientsGraph.length - 1
+            ].cumulative.toLocaleString(),
+            sText: this.$t('{date}の累計', {
+              date: this.$dayjs(
+                patientsGraph[patientsGraph.length - 1].label
+              ).format('MM/DD')
+            }),
+            unit: this.$t('人')
+          }
+        })
+        .catch(_ => {
+          this.$emit('failed2', '陽性患者数データ ')
+        })
     }
   }
 }

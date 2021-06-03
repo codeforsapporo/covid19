@@ -38,18 +38,16 @@ export default {
   },
   methods: {
     async getContactsGraphFromAPI() {
-      try {
-        const fetchurl = await fetch(
-          'https://codeforsapporo.github.io/covid19hokkaido_scraping/contacts.json'
-        )
-
-        const response = await fetchurl.json()
-        this.contactsGraph = formatGraph(response.data)
-        this.contacts.last_update = response.last_update
-        this.contacts.loaded = true
-      } catch (_) {
-        this.$emit('failed', '新型コロナコールセンター相談件数データ ')
-      }
+      await this.$axios
+        .$get('/contacts.json')
+        .then(response => {
+          this.contactsGraph = formatGraph(response.data)
+          this.contacts.last_update = response.last_update
+          this.contacts.loaded = true
+        })
+        .catch(_ => {
+          this.$emit('failed', '新型コロナコールセンター相談件数データ ')
+        })
     }
   }
 }

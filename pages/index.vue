@@ -77,21 +77,19 @@ export default {
   },
   methods: {
     async getLastUpdateFromAPI() {
-      try {
-        const fetchurl = await fetch(
-          'https://codeforsapporo.github.io/covid19hokkaido_scraping/last_update.json'
-        )
-        const response = await fetchurl.json()
-
-        this.headerItem = {
-          icon: 'mdi-chart-timeline-variant',
-          title: this.$t('道内の最新感染動向'),
-          date: response
-        }
-      } catch (_) {
-        this.failed = true
-        this.failed_datas += '最終更新日データ '
-      }
+      await this.$axios
+        .$get('/last_update.json')
+        .then(response => {
+          this.headerItem = {
+            icon: 'mdi-chart-timeline-variant',
+            title: this.$t('道内の最新感染動向'),
+            date: response
+          }
+        })
+        .catch(_ => {
+          this.failed = true
+          this.failed_datas += '最終更新日データ '
+        })
     }
   },
   head() {

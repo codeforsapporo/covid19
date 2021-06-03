@@ -43,18 +43,16 @@ export default {
   },
   methods: {
     async getCurrentPatientsGraphFromAPI() {
-      try {
-        const fetchurl = await fetch(
-          'https://codeforsapporo.github.io/covid19hokkaido_scraping/current_patients.json'
-        )
-
-        const response = await fetchurl.json()
-        this.currentPatientsGraph = formatCurrentPatientsGraph(response.data)
-        this.current_patients.last_update = response.last_update
-        this.current_patients.loaded = true
-      } catch (_) {
-        this.$emit('failed', '現在患者数データ ')
-      }
+      await this.$axios
+        .$get('/current_patients.json')
+        .then(response => {
+          this.currentPatientsGraph = formatCurrentPatientsGraph(response.data)
+          this.current_patients.last_update = response.last_update
+          this.current_patients.loaded = true
+        })
+        .catch(_ => {
+          this.$emit('failed', '現在患者数データ ')
+        })
     }
   }
 }
